@@ -75,7 +75,7 @@ Rules:
             return parsed
         raise ValueError("Missing required keys in response")
     except (ValueError, KeyError, RuntimeError, json.JSONDecodeError) as exc:
-        print(f"   ⚠️ generate_dashboard_copy error: {exc}")
+        print(f"   [WARN] generate_dashboard_copy error: {exc}")
         return fallback_dashboard_copy(filters, search_phrase, trend_terms)
 
 
@@ -147,7 +147,7 @@ async def verify_and_caption_images(
                 "relevant": bool(parsed.get("relevant", True)),
             }
         except Exception as exc:
-            print(f"   ⚠️ Image verification failed, skipping ({url[:50]}…): {exc}")
+            print(f"   [WARN] Image verification failed, skipping ({url[:50]}...): {exc}")
             return {"url": url, "caption": None, "verified": False, "relevant": False}
 
     results = await asyncio.gather(*[_check_one(u) for u in upgraded])

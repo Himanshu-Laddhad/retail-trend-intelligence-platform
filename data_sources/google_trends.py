@@ -12,7 +12,7 @@ def fetch_trend_timeseries(query: str, timeframe: str = "today 5-y") -> pd.DataF
         time.sleep(2)
         return pt.interest_over_time()
     except Exception as exc:
-        print(f"⚠️  pytrends warning for '{query}': {exc}")
+        print(f"[WARN] pytrends warning for '{query}': {exc}")
         return pd.DataFrame()
 
 
@@ -23,7 +23,7 @@ def fetch_related_queries(query: str) -> dict:
         pt.build_payload([query], cat=0, timeframe="today 5-y", geo="", gprop="")
         return pt.related_queries()
     except Exception as exc:
-        print(f"⚠️  pytrends related_queries warning for '{query}': {exc}")
+        print(f"[WARN] pytrends related_queries warning for '{query}': {exc}")
         return {}
 
 

@@ -25,7 +25,7 @@ async def scrape_pinterest_optimized(
     """
     
     try:
-        print(f"📌 Searching Pinterest for '{query}' (target: {max_images} images)...")
+        print(f"[*] Searching Pinterest for '{query}' (target: {max_images} images)...")
         
         all_images = []
         
@@ -117,10 +117,10 @@ async def scrape_pinterest_optimized(
             
             # Select best images (max_images)
             final_images = all_images[:max_images]
-            print(f"   ✓ Pinterest: {len(final_images)} high-quality images scraped")
+            print(f"   [OK] Pinterest: {len(final_images)} high-quality images scraped")
         
         except Exception as e:
-            print(f"   ⚠️ Pinterest scraping error: {e}")
+            print(f"   [WARN] Pinterest scraping error: {e}")
             if 'driver' in locals():
                 try:
                     driver.quit()
@@ -132,20 +132,20 @@ async def scrape_pinterest_optimized(
         if final_images:
             df = pd.DataFrame(final_images)
         else:
-            print(f"   ⚠️ No Pinterest images found, creating empty DataFrame")
+            print(f"   [WARN] No Pinterest images found, creating empty DataFrame")
             df = pd.DataFrame()
         
         if not df.empty:
             output_file = output_dir / "pinterest_images.csv"
             df.to_csv(output_file, index=False, encoding="utf-8-sig")
-            print(f"✅ Found {len(df)} Pinterest images")
+            print(f"[OK] Found {len(df)} Pinterest images")
         else:
-            print(f"⚠️ No images found for query: {query}")
+            print(f"[WARN] No images found for query: {query}")
         
         return df
     
     except Exception as e:
-        print(f"❌ Pinterest scraper error: {e}")
+        print(f"[ERROR] Pinterest scraper error: {e}")
         import traceback
         traceback.print_exc()
         return pd.DataFrame()
@@ -157,7 +157,7 @@ if __name__ == "__main__":
         output = Path("output/test")
         output.mkdir(parents=True, exist_ok=True)
         result = await scrape_pinterest_optimized("denim jacket", output, max_images=12)
-        print(f"\n✅ Test complete: {len(result)} images")
+        print(f"\n[OK] Test complete: {len(result)} images")
         if not result.empty:
             print(result.head())
     

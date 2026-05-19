@@ -44,13 +44,13 @@ if _GROQ_API_KEY:
 
         _groq_client = Groq(api_key=_GROQ_API_KEY)
         ACTIVE_PROVIDER = "groq"
-        print(f"✅ Groq AI active ({GROQ_MODEL})")
+        print(f"[OK] Groq AI active ({GROQ_MODEL})")
     except Exception as _e:
-        print(f"⚠️  Groq init failed: {_e}")
+        print(f"[WARN] Groq init failed: {_e}")
 
 if ACTIVE_PROVIDER == "none":
     print("\n" + "=" * 60)
-    print("⚠️  WARNING: Groq AI not configured")
+    print("[WARN] WARNING: Groq AI not configured")
     print("=" * 60)
     print("To enable AI analysis, add to .env:")
     print("  GROQ_API_KEY=<your-groq-api-key>")
